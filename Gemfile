@@ -57,4 +57,7 @@ end
 # => Add shoulda-matchers gem to the test group of your Gemfile:
 group :test do
   gem 'shoulda-matchers'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
 end
