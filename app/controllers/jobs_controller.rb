@@ -71,4 +71,18 @@ class JobsController < ApplicationController
     def job_params
       params.require(:job).permit(:name, :predecessor_id)
     end
+
+    def exercise_method
+      @already_done
+      @independents
+      @predecessors
+      @jobs = Job.all.each do |job|
+        if !job.predecessor_id
+          @independent << job
+        elsif @predecessors.add?(Job.find(job.predecessor_id)).nil?
+          return 'Error: Multi dependency'
+        end
+      end
+      
+    end
 end

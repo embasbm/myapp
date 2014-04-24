@@ -1,4 +1,8 @@
 Myapp::Application.routes.draw do
+
+
+  root to: "jobs#index"
+
   resources :jobs
 
   # The priority is based upon order of creation: first created -> highest priority.
