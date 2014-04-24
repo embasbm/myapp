@@ -43,6 +43,14 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# => Add rspec-rails gem to the development and test groups of your Gemfile.
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
+  gem 'factory_girl_rails'
+end
+
+# => Add shoulda-matchers gem to the test group of your Gemfile:
+group :test do
+  gem 'shoulda-matchers'
 end
