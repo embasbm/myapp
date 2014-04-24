@@ -40,6 +40,21 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1
   # PATCH/PUT /jobs/1.json
   def update
+    
+    if !job_params[:predecessor_id].nil? && job_params[:predecessor_id]!=""
+      @predecessor = Job.find(job_params[:predecessor_id])    
+      @job.predecessor_id=@predecessor.id
+      @predecessor.successor_id=@job.id
+      @predecessor.save
+    end
+
+    if !job_params[:successor_id].nil? && job_params[:successor_id]!=""
+      @successor = Job.find(job_params[:successor_id])
+      @job.successor_id=@successor.id
+      @successor.predecessor_id=@job.id
+      @successor.save
+    end
+
     respond_to do |format|
       if @job.update(job_params)
         format.html { redirect_to @job, notice: 'Job was successfully updated.' }
@@ -61,6 +76,57 @@ class JobsController < ApplicationController
     end
   end
 
+  # => EMBA METHOD FOR THE EXERCISE
+  #=================================
+  def exercise_method
+
+    # => All jobs
+    @old = Job.all
+    @jobs=Set.new
+    @jobs=@old
+    @result=Set.new
+    # => let remove the singles, independent one
+    @jobs.each do |f|      
+      if f.predecessor_id.nil? && f.successor_id.nil?
+        if @result.add?(f).nil?
+          return 'Error 1'
+        end
+        @jobs.delete(f)
+      end
+      if f.predecessor_id==f.id || f.successor_id==f.id
+        raise "#{f.inspect}"
+        
+        return 'Error 0'
+      end
+    end
+
+    # => following successors
+    @jobs.each do |f|
+      if f.predecessor_id.nil?        
+        loop do
+          if @result.empty?
+            @result.add(f)
+          elsif @result.add?(f).nil?
+            return 'Error 2'
+          end
+          @jobs.delete(f)
+          if !f.successor_id.nil?
+            f = Job.find(f.successor_id)
+          else
+            f=nil
+          end
+          break if !f 
+        end
+      end
+    end
+    
+    if @jobs.any?
+      return 'Error 3'
+    end
+    return @result
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job
@@ -69,6 +135,7 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:name, :predecessor_id)
+      params.require(:job).permit(:name, :predecessor_id,:successor_id)
     end
+    
 end

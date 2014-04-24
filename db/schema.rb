@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424132637) do
+ActiveRecord::Schema.define(version: 20140424155645) do
 
   create_table "jobs", force: true do |t|
     t.string   "name"
     t.integer  "predecessor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "successor_id"
   end
 
 end

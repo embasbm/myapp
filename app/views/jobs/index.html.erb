@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Predecessor</th>
+      <th>Successor</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,7 +16,11 @@
     <% @jobs.each do |job| %>
       <tr>
         <td><%= job.name %></td>
-        <td><%= job.predecessor_id %></td>
+        <td><%= job.predecessor_id.nil? ? '' : Job.find(job.predecessor_id).name %></td>
+        <td><%= job.successor_id.nil? ? '' : Job.find(job.successor_id).name %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td><%= link_to 'Show', job %></td>
         <td><%= link_to 'Edit', edit_job_path(job) %></td>
         <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -27,3 +32,4 @@
 <br>
 
 <%= link_to 'New Job', new_job_path %>
+<%= link_to 'Exercise', exercise_method_view_path %>
