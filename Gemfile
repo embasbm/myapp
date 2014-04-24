@@ -44,6 +44,10 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+
+# => https://github.com/rails/protected_attributes
+gem 'protected_attributes'
+
 # => Add rspec-rails gem to the development and test groups of your Gemfile.
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
