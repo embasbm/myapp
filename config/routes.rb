@@ -3,6 +3,8 @@ Myapp::Application.routes.draw do
 
   root to: "jobs#index"
 
+  get '/jobs/exercise_method' => 'jobs#exercise_method', as: 'exercise_method_view'
+
   resources :jobs
 
   # The priority is based upon order of creation: first created -> highest priority.

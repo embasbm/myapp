@@ -1,10 +1,15 @@
 <h1>Listing jobs</h1>
-
+<ol>
+  <li>Insert various tasks</li>
+  <li>Make relationships between them</li>
+  <li>Click on <%= link_to 'Exercise', exercise_method_view_path %> to see the result of the exercise</li>
+</ol>
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Predecessor</th>
+      <th>Successor</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,7 +20,11 @@
     <% @jobs.each do |job| %>
       <tr>
         <td><%= job.name %></td>
-        <td><%= job.predecessor_id %></td>
+        <td><%= job.predecessor_id.nil? ? '' : Job.find(job.predecessor_id).name %></td>
+        <td><%= job.successor_id.nil? ? '' : Job.find(job.successor_id).name %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td><%= link_to 'Show', job %></td>
         <td><%= link_to 'Edit', edit_job_path(job) %></td>
         <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>

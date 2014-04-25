@@ -10,5 +10,10 @@
   <%= @job.predecessor_id %>
 </p>
 
+<p>
+  <strong>Successor:</strong>
+  <%= @job.successor_id %>
+</p>
+
 <%= link_to 'Edit', edit_job_path(@job) %> |
 <%= link_to 'Back', jobs_path %>

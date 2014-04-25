@@ -1,0 +1,29 @@
+<h1>Listing according to the exercise</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sorted</th>
+      <th></th>
+      <th>Predecessor</th>
+      <th></th>
+      <th>Predecessor</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @result.each do |job| %>
+      <tr>
+        <td><%= job.name %></td>
+        <td></td>
+        <td><%= job.predecessor_id %></td>
+        <td></td>
+        <td><%= job.successor_id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Job', new_job_path %>
